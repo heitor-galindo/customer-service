@@ -1,0 +1,22 @@
+services:
+  customer-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PROJECT_DIR: CustomerService
+    image: ghcr.io/heitor-galindo/customer-service:1.0.0
+    container_name: customer-service
+    ports:
+      - "8081:8080"
+    restart:
+      always
+
+  my-prometheus:
+    image: prom/prometheus
+    container_name: my-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
