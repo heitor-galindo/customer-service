@@ -41,5 +41,24 @@ services:
     depends_on:
       - tempo-init
 
+  my-loki:
+    image: grafana/loki:main
+    container_name: my-loki
+    command: [ "-config.file=/etc/loki/local-config.yaml" ]
+    ports:
+      - "3100:3100"
+
+  my-grafana:
+    image: grafana/grafana
+    container_name: my-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./docker/grafana:/etc/grafana/provisioning/datasources:ro
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=password
+
 volumes:
   tempo-data:
