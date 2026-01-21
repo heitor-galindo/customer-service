@@ -5,10 +5,10 @@ services:
       dockerfile: Dockerfile
       args:
         PROJECT_DIR: CustomerService
-    image: ghcr.io/heitor-galindo/customer-service:1.0.0
+    image: customer-service:1.0.0
     container_name: customer-service
     ports:
-      - "8081:8080"
+      - "8081:8081"
     restart:
       always
 
